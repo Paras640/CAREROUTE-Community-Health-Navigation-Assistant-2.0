@@ -1,66 +1,75 @@
-# CareRoute Python API
+CareRoute 🩺
+Intelligent health navigation and symptom-to-care routing at your fingertips.
 
-CareRoute is a Python-only FastAPI service for disease prediction from symptom
-indicators. It no longer includes or requires a Next.js frontend.
+CareRoute is a modern healthcare guidance application designed to bridge the gap between patient symptoms and the right primary course of action. By taking user-reported health issues as input, CareRoute analyzes the inputs and suggests immediate primary care steps, recommended specialists, or appropriate self-care measures, streamlining the journey to recovery.
 
-## Requirements
+🚀 Key Features
+Smart Symptom Intake: An intuitive interface to log physical or mental health issues safely.
 
-- Python 3.10 or newer
-- The training dataset
-  `Final_Augmented_dataset_Diseases_and_Symptoms.csv` in the repository root
+Primary Care Recommendations: Instant, data-driven suggestions on what the primary course of action should be (e.g., rest, urgent care, or a specific specialist).
 
-The dataset and generated model files are not committed to this repository.
-The dataset is ignored by Git, and the generated model artifacts are too large
-to include. Obtain the dataset separately before training.
+Personalized Health Pathways: Dynamic routing that adapts based on user feedback and symptom severity.
 
-## Setup
+Secure & Private: Built with patient data privacy and confidentiality at its core.
 
-From the repository root, create and activate a virtual environment, then
-install the Python dependencies:
+🛠️ Tech Stack
+Backend / API: Python (FastAPI)
 
-```powershell
-py -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-```
+Database & ORM: PostgreSQL, SQLAlchemy, Pydantic
 
-Train the model and create its local artifacts:
+Frontend: [React / Next.js / Flutter - update as needed]
 
-```powershell
-python ml\train_model.py
-```
+Cloud / Infrastructure: AWS (S3, EC2 / Lambda) + Docker
 
-This creates `ml\model.pkl`, `ml\label_encoder.pkl`, and
-`ml\feature_names.pkl`. These files are ignored by Git and must be generated
-again on each machine.
+📁 Project Structure
+Plaintext
+care-route/
+├── client/           # Frontend application
+├── server/           # Backend API and routing logic (FastAPI)
+├── ai_engine/        # Symptom analysis and recommendation logic
+├── docs/             # Documentation and architecture diagrams
+└── README.md
+⚙️ Getting Started
+Follow these steps to set up the project locally on your machine.
 
-Start the API:
+Prerequisites
+Make sure you have the following installed:
 
-```powershell
-python -m uvicorn ml.api:app --host 127.0.0.1 --port 8000
-```
+Python (v3.10+ recommended)
 
-Open `http://127.0.0.1:8000/docs` for interactive API documentation.
+Node.js (for the frontend client)
 
-## API
+Docker (optional, for containerized local development)
 
-- `GET /` reports that the service is running.
-- `POST /predict` accepts a JSON object whose keys are symptom feature names
-  from the training dataset and whose values are `1` (present) or `0` (absent).
-  Unspecified features are treated as absent.
+Installation & Setup
+Clone the repository:
 
-Example:
+Bash
+git clone https://github.com/your-username/care-route.git
+cd care-route
+Set up the Backend (FastAPI):
 
-```json
-{
-  "headache": 1,
-  "fever": 1
-}
-```
+Bash
+cd server
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+pip install -r requirements.txt
+Configure Environment Variables:
 
-The response contains the predicted disease label and the number of submitted
-symptoms that matched model features. Prediction is only available after the
-model artifacts have been generated.
+Create a .env file in the server directory.
 
-This service provides informational predictions, not a medical diagnosis or
-substitute for professional care. Seek emergency help for urgent symptoms.
+Add your required configuration (e.g., database URI, API keys).
+
+Run the Application:
+
+Bash
+# Start the backend server
+uvicorn main:app --reload
+💡 How It Works
+Input: The user enters their current symptoms or health concerns into the application.
+
+Analysis: CareRoute processes the input to evaluate potential causes and urgency levels.
+
+Routing: The app generates a clear, actionable primary care recommendation, guiding the user on the right next steps for their health journey.
+
+📄 License
